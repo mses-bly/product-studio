@@ -1,14 +1,19 @@
 import sqlite3
 
 import flask
+import os
+from OpenSSL import SSL
 from flask import Flask
 from flask import g
 from flask import request
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
 
+context = SSL.Context(SSL.SSLv23_METHOD)
+cer = os.path.join(os.path.dirname(__file__), 'jaya-birchdesai-jjy3.squarespace.com.crt')
+key = os.path.join(os.path.dirname(__file__), 'jaya-birchdesai-jjy3.squarespace.com.key')
 DATABASE = 'image_db.db'
 
 
@@ -76,4 +81,5 @@ def _get_image():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, processes=5)
+    context = (cer, key)
+    app.run(host='0.0.0.0', processes=5, port=5000, debug=True, ssl_context=context)

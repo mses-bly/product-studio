@@ -6,20 +6,12 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 	<script type="text/javascript" charset="utf-8">
-
 		(function poll(){
 		setTimeout(function() {
-    $.ajax({ url: "http://127.0.0.1:5000/get_image", success: function(data){
-    	console.log(data);
-        $('#text_help').append('<br>' + $('<div/>').text('Received #').html());
+    $.ajax({ url: "http://54.163.48.22:5000/get_image", success: function(data){
+    	document.getElementById("img").src=data;
     	}, complete: poll, timeout: 3000 })}, 1000);
 	})();
-
-//            socket.on('broadcast_image', function(msg) {
-  //          	document.getElementById("img").src=msg.data;
-    //        	//$("img").src=msg.data;
-      //
-        //    });
 	</script>
 </head>
 <body>
