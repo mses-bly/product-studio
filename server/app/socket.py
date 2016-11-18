@@ -6,13 +6,6 @@ app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
 
 
-@socketio.on('', namespace='/test')
-def test_message(message):
-    print "Image Received"
-    emit('broadcast_image', message, broadcast=True)
-
-
-
 @socketio.on('receive_image', namespace='/test')
 def test_message(message):
     print "Image Received"
