@@ -10,13 +10,12 @@
 			namespace = 'test';
 
             <!--//     http[s]://<domain>:<port>[/<namespace>]-->
-            console.log("localhost:5000" + "/" + namespace)
-            var socket = io.connect('ws://localhost:5000' + '/' + namespace);
+            var socket = io.connect('ws://54.163.48.22:5000' + '/' + namespace);
 
             socket.on('broadcast_image', function(msg) {
             	document.getElementById("img").src=msg.data;
             	//$("img").src=msg.data;
-                //$('#text_help').append('<br>' + $('<div/>').text('Received #' + ).html());
+                $('#text_help').append('<br>' + $('<div/>').text('Received #').html());
             });
 
             <!--// Interval function that tests message latency by sending a "ping"-->
