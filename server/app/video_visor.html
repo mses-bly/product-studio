@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Proof of concept</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+	<script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+			namespace = 'test';
+
+            <!--//     http[s]://<domain>:<port>[/<namespace>]-->
+            console.log("localhost:5000" + "/" + namespace)
+            var socket = io.connect('ws://localhost:5000' + '/' + namespace);
+
+            socket.on('broadcast_image', function(msg) {
+            	document.getElementById("img").src=msg.data;
+            	//$("img").src=msg.data;
+                //$('#text_help').append('<br>' + $('<div/>').text('Received #' + ).html());
+            });
+
+            <!--// Interval function that tests message latency by sending a "ping"-->
+            <!--// message. The server then responds with a "pong" message and the-->
+            <!--// round trip time is measured.-->
+            var ping_pong_times = [];
+            <!--var start_time;-->
+            <!--window.setInterval(function() {-->
+                <!--start_time = (new Date).getTime();-->
+                <!--socket.emit('my_ping');-->
+            <!--}, 1000);-->
+            <!--// Handler for the "pong" message. When the pong is received, the-->
+            <!--// time from the ping is stored, and the average of the last 30-->
+            <!--// samples is average and displayed.-->
+            <!--socket.on('my_pong', function() {-->
+                <!--var latency = (new Date).getTime() - start_time;-->
+                <!--ping_pong_times.push(latency);-->
+                <!--ping_pong_times = ping_pong_times.slice(-30); // keep last 30 samples-->
+                <!--var sum = 0;-->
+                <!--for (var i = 0; i < ping_pong_times.length; i++)-->
+                    <!--sum += ping_pong_times[i];-->
+                <!--$('#ping-pong').text(Math.round(10 * sum / ping_pong_times.length) / 10);-->
+            <!--});-->
+            <!--// Handlers for the different forms in the page.-->
+            <!--// These accept data from the user and send it to the server in a-->
+            <!--// variety of ways-->
+            <!--$('form#emit').submit(function(event) {-->
+                <!--socket.emit('my_event', {data: $('#emit_data').val()});-->
+                <!--return false;-->
+            <!--});-->
+            <!--$('form#broadcast').submit(function(event) {-->
+                <!--socket.emit('my_broadcast_event', {data: $('#broadcast_data').val()});-->
+                <!--return false;-->
+            <!--});-->
+            <!--$('form#join').submit(function(event) {-->
+                <!--socket.emit('join', {room: $('#join_room').val()});-->
+                <!--return false;-->
+            <!--});-->
+            <!--$('form#leave').submit(function(event) {-->
+                <!--socket.emit('leave', {room: $('#leave_room').val()});-->
+                <!--return false;-->
+            <!--});-->
+            <!--$('form#send_room').submit(function(event) {-->
+                <!--socket.emit('my_room_event', {room: $('#room_name').val(), data: $('#room_data').val()});-->
+                <!--return false;-->
+            <!--});-->
+            <!--$('form#close').submit(function(event) {-->
+                <!--socket.emit('close_room', {room: $('#close_room').val()});-->
+                <!--return false;-->
+            <!--});-->
+            <!--$('form#disconnect').submit(function(event) {-->
+                <!--socket.emit('disconnect_request');-->
+                <!--return false;-->
+            <!--});-->
+        });
+
+
+	</script>
+</head>
+<body>
+
+<img id="img"
+	 src="data:image/jpeg;base64,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"/>
+
+<div id="text_help"></div>
+</body>
+</html>
