@@ -1,0 +1,1 @@
+CREATE TABLE images(image TEXT);

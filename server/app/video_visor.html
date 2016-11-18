@@ -6,73 +6,20 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 	<script type="text/javascript" charset="utf-8">
-        $(document).ready(function() {
-			namespace = 'test';
 
-            <!--//     http[s]://<domain>:<port>[/<namespace>]-->
-            var socket = io.connect('ws://54.163.48.22:5000' + '/' + namespace);
+		(function poll(){
+		setTimeout(function() {
+    $.ajax({ url: "http://127.0.0.1:5000/get_image", success: function(data){
+    	console.log(data);
+        $('#text_help').append('<br>' + $('<div/>').text('Received #').html());
+    	}, complete: poll, timeout: 3000 })}, 1000);
+	})();
 
-            socket.on('broadcast_image', function(msg) {
-            	document.getElementById("img").src=msg.data;
-            	//$("img").src=msg.data;
-                $('#text_help').append('<br>' + $('<div/>').text('Received #').html());
-            });
-
-            <!--// Interval function that tests message latency by sending a "ping"-->
-            <!--// message. The server then responds with a "pong" message and the-->
-            <!--// round trip time is measured.-->
-            var ping_pong_times = [];
-            <!--var start_time;-->
-            <!--window.setInterval(function() {-->
-                <!--start_time = (new Date).getTime();-->
-                <!--socket.emit('my_ping');-->
-            <!--}, 1000);-->
-            <!--// Handler for the "pong" message. When the pong is received, the-->
-            <!--// time from the ping is stored, and the average of the last 30-->
-            <!--// samples is average and displayed.-->
-            <!--socket.on('my_pong', function() {-->
-                <!--var latency = (new Date).getTime() - start_time;-->
-                <!--ping_pong_times.push(latency);-->
-                <!--ping_pong_times = ping_pong_times.slice(-30); // keep last 30 samples-->
-                <!--var sum = 0;-->
-                <!--for (var i = 0; i < ping_pong_times.length; i++)-->
-                    <!--sum += ping_pong_times[i];-->
-                <!--$('#ping-pong').text(Math.round(10 * sum / ping_pong_times.length) / 10);-->
-            <!--});-->
-            <!--// Handlers for the different forms in the page.-->
-            <!--// These accept data from the user and send it to the server in a-->
-            <!--// variety of ways-->
-            <!--$('form#emit').submit(function(event) {-->
-                <!--socket.emit('my_event', {data: $('#emit_data').val()});-->
-                <!--return false;-->
-            <!--});-->
-            <!--$('form#broadcast').submit(function(event) {-->
-                <!--socket.emit('my_broadcast_event', {data: $('#broadcast_data').val()});-->
-                <!--return false;-->
-            <!--});-->
-            <!--$('form#join').submit(function(event) {-->
-                <!--socket.emit('join', {room: $('#join_room').val()});-->
-                <!--return false;-->
-            <!--});-->
-            <!--$('form#leave').submit(function(event) {-->
-                <!--socket.emit('leave', {room: $('#leave_room').val()});-->
-                <!--return false;-->
-            <!--});-->
-            <!--$('form#send_room').submit(function(event) {-->
-                <!--socket.emit('my_room_event', {room: $('#room_name').val(), data: $('#room_data').val()});-->
-                <!--return false;-->
-            <!--});-->
-            <!--$('form#close').submit(function(event) {-->
-                <!--socket.emit('close_room', {room: $('#close_room').val()});-->
-                <!--return false;-->
-            <!--});-->
-            <!--$('form#disconnect').submit(function(event) {-->
-                <!--socket.emit('disconnect_request');-->
-                <!--return false;-->
-            <!--});-->
-        });
-
-
+//            socket.on('broadcast_image', function(msg) {
+  //          	document.getElementById("img").src=msg.data;
+    //        	//$("img").src=msg.data;
+      //
+        //    });
 	</script>
 </head>
 <body>
